@@ -1,0 +1,36 @@
+#include <stdio.h>
+
+void totalbill(char ward, int days) {
+    float bill = 0;
+    float discount = 0;
+
+    if (ward == 'G') bill = 1000 * days;
+    else if (ward == 'P') bill = 2000 * days;
+    else if (ward == 'S') bill = 5000 * days;
+    else { printf("Invalid ward.\n");
+    return;
+    }
+
+    if (days > 7) {
+        discount = bill * 0.05;
+        bill -= discount;
+    }
+
+    printf("Total bill: %.2f\n", bill + discount);
+    printf("Discount: %.2f\n", discount);
+    printf("Amount to be paid: %.2f\n", bill);
+
+}
+
+int main() {
+    char patientname[50], ward;
+    int days;
+    printf("Patient name: ");
+    scanf("%s", patientname);
+    printf("Ward (G/P/S): ");
+    scanf(" %c", &ward);
+    printf("Days admitted: ");
+    scanf("%d", &days);
+    totalbill(ward, days);
+    return 0;
+}
