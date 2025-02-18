@@ -8,8 +8,7 @@ void readDetails(float*p_salary,int*p_score,int*p_experience){
     scanf("%d",p_experience);
 }
 int isEligible(float salary,int score,int experience){
-    return((salary>=30)&&(score>=750)&&(experience>=2));
-
+    return((salary >= 30000) && (score >= 750) && (experience >= 2));
 }
 
 int main(){
@@ -30,3 +29,4 @@ int main(){
  }
     return 0;
 }
+
