@@ -1,0 +1,60 @@
+#include <stdio.h>
+#include <string.h>
+
+typedef struct {
+    char name[200];
+    int condition;
+} Patient;
+
+void readdata(Patient patients[], int *n);
+void sortingdetail(Patient patients[], int n);
+void displaydata(Patient patients[], int n);
+
+int main() {
+    Patient patients[200]; 
+    int n; 
+
+    readdata(patients, &n); 
+    sortingdetail(patients, n); 
+
+    printf("\nPatient Data after sorting:\n");
+    displaydata(patients, n);
+
+    return 0;
+}
+
+void readdata(Patient patients[], int *n) {
+    printf("Enter the number of patients (max 200): ");
+    scanf("%d", n);
+    
+    // Ensure the number of patients does not exceed the array size
+    if (*n > 200) {
+        printf("Number of patients cannot exceed 200. Setting to 200.\n");
+        *n = 200;
+    }
+
+    for (int i = 0; i < *n; i++) { 
+        printf("Patient (%d) name: ", i + 1);
+        scanf("%s", patients[i].name);
+        printf("Patient (%d) condition: ", i + 1);
+        scanf("%d", &patients[i].condition); 
+    }
+}
+
+void displaydata(Patient patients[], int n) {
+    for (int i = 0; i < n; i++) {
+        printf("Patient %d: Name: %s, Condition: %d\n", i + 1, patients[i].name, patients[i].condition);
+    }
+}
+
+void sortingdetail(Patient patients[], int n) {
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = 0; j < n - i - 1; j++) {
+            if (strcmp(patients[j].name, patients[j + 1].name) > 0) {
+                Patient temp = patients[j];
+                patients[j] = patients[j + 1];
+                patients[j + 1] = temp;
+            }
+        }
+    }
+}
