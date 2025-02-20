@@ -1,0 +1,57 @@
+#include <stdio.h>
+#include <string.h>
+
+struct employee_t {
+    int id;
+    char name[50];
+    float salary;
+    char dept[50];
+};
+
+typedef struct employee_t employee;
+
+void reademployee(employee emp[], int n);
+void displayemployee(employee emp[], int n);
+employee findhigestsalary(employee emp[], int n);
+
+void reademployee(employee emp[], int n) {
+    int i;
+    for (i = 0; i < n; i++) {
+        printf("Enter the id, name, salary, dept of employee %d:\n", i + 1);
+        scanf("%d %s %f %s", &emp[i].id, emp[i].name, &emp[i].salary, emp[i].dept);
+    }
+}
+
+void displayemployee(employee emp[], int n) {
+    int i;
+    for (i = 0; i < n; i++) {
+        printf("Employee %d - ID: %d, Name: %s, Salary: %.2f, Dept: %s\n", 
+               i + 1, emp[i].id, emp[i].name, emp[i].salary, emp[i].dept);
+    }
+}
+
+employee findhigestsalary(employee emp[], int n) {
+    employee highest = emp[0]; // Corrected variable name
+    for (int i = 1; i < n; i++) {
+        if (emp[i].salary > highest.salary) {
+            highest = emp[i];
+        }
+    }
+    return highest;
+}
+
+int main() {
+    int employeecount;
+    printf("Enter the number of employees:\n");
+    scanf("%d", &employeecount);
+    
+    employee employees[1000];
+    reademployee(employees, employeecount);
+    displayemployee(employees, employeecount);
+    
+    employee higestsalariedemployee = findhigestsalary(employees, employeecount);
+    printf("Employee with the highest salary: %s, %.2f (%s)\n",
+           higestsalariedemployee.name, higestsalariedemployee.salary, higestsalariedemployee.dept);
+    
+    return 0;
+}
