@@ -1,0 +1,62 @@
+#include <stdio.h>
+#include <string.h>
+
+struct student_t {
+    int rollno;          
+    char name[50];       
+    int maths, physics, chemistry, cs;
+    int totalmarks;    
+    float percentage;    
+    char grade;          
+};
+
+typedef struct student_t student;
+
+void readestudent(student std[], int n);
+void displaystudent(student std[], int n);
+char calculateGrade(float percentage);
+
+int main() {
+    int studentcount;  
+    printf("Enter number of students:\n"); 
+    scanf("%d", &studentcount); 
+    student students[1000]; 
+    readestudent(students, studentcount);
+    displaystudent(students, studentcount);
+    return 0;
+}
+
+char calculateGrade(float percentage) {
+    if (percentage >= 90) return 'A';
+    else if (percentage >= 80) return 'B';
+    else if (percentage >= 70) return 'C';
+    else if (percentage >= 60) return 'D';
+    else return 'F';
+}
+
+void readestudent(student std[], int n) {
+    int i;
+    printf("Enter the student details (Roll.No, Name, marks (maths, physics, chemistry, cs):\n");
+    for (i = 0; i < n; i++) {
+        scanf("%d", &std[i].rollno);
+        scanf(" %s", std[i].name); 
+        scanf("%d%d%d%d", &std[i].maths, &std[i].physics, &std[i].chemistry, &std[i].cs);
+        
+        std[i].totalmarks = std[i].maths + std[i].physics + std[i].chemistry + std[i].cs;
+        std[i].percentage = (float)std[i].totalmarks / 4;
+        std[i].grade = calculateGrade(std[i].percentage);
+    }
+}
+
+void displaystudent(student std[], int n) {
+    printf("-----------------------------------------------------------------------------------\n");
+    printf("| %7s  |%-15s|%5s|%7s|%5s|%5s|%5s|%.2s|%s|\n","Roll No"," Name", "Maths", "Physics","Chem" ,"CS","Total"," Percentage" ,"Grade");
+    printf("------------------------------------------------------------------------------------\n");
+    for (int i = 0; i < n; i++) {
+       printf("| %7d   | %-15s | %5d | %7d | %5d | %5d | %5d|%.2f|%c|\n",
+               std[i].rollno, std[i].name, std[i].maths, std[i].physics,
+               std[i].chemistry, std[i].cs, std[i].totalmarks,
+               std[i].percentage, std[i].grade);
+    }
+    printf("------------------------------------------------------------------------------------\n");
+}
